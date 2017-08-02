@@ -1,3 +1,4 @@
+
 var express = require('express');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var app = express();
@@ -47,11 +48,11 @@ router.get('/api/latest/imagesearch/', function (req, res) {
 	
 	MongoClient.connect(urldb, function(err, db) {
   if (err) throw err;
-  var mysort = { when: 1 };
-  db.collection("imghis").find().sort(mysort).toArray(function(err, result) {
+  var mysort = { when: -1 };
+  db.collection("imghis").find().sort(mysort).limit(10).toArray(function(err, result) {
     if (err) throw err;
 	
-    for(var i=result.length-1;i>=0;i--){
+    for(var i=0;i<=9;i++){
 		array.push({term: result[i]["term"], when: result[i]["when"]});
 	}
 	
